@@ -1,13 +1,24 @@
+# Language setting
 language: scala
 
+# Version number
 scala:
     - 2.11.0
 
-script:
-  - export SBT_OPTS="-XX:+CMSClassUnloadingEnabled -XX:PermSize=256M -XX:MaxPermSize=512M"
-  - sbt clean scoverage:test
+jdk:
+   - openjdk7
+   - oraclejdk7
+   - openjdk6
+   - oraclejdk8
 
-after_script:
-  - mkdir -p shippable/codecoverage
-  - mv target/scala-2.11/coverage-report/cobertura.xml $PWD/shippable/codecoverage/
-
+build:
+  pre_ci_boot:
+    image_name: himanshu0503/u12sca
+    image_tag: tip
+    
+  ci:
+    - java -version
+    - sbt ++2.10.4 test
+    - echo "Hello, World!"
+    - export SBT_OPTS="-XX:+CMSClassUnloadingEnabled -XX:PermSize=256M -XX:MaxPermSize=512M"
+    - sbt clean scoverage:test
