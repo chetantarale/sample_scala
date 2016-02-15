@@ -1,10 +1,6 @@
 # Language setting
 language: scala
 
-# Version number
-scala:
-    - 2.11.0
-
 jdk:
    - openjdk7
    - oraclejdk7
